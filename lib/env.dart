@@ -14,27 +14,4 @@ class Env {
 # I colori di Berna
 # PRIMARY_COLOR=0xFF8bc34a
 # SECONDARY_COLOR=0xFFffac1c
-
-# TODO
-# [x] Colonna cliccabile
-# [x] Filtro
-# [x] Pagina di lascia mail e cap
-# [x] Social share sulla landing
-
-# [x] config. telefono
-# [x] cambiare lead
-# [x] logo
-# [x] piatto veg
-# [x] colori filtri
-# [x] cambio font
-# [ ] cambia nome piatti
-# [ ] bottone condividi amici
-# [x] logo ig
-# [x] google sheets
-# [x] API google sheets
-# [x] bottone personalizza al grammo
-# [ ] deploy
-# [ ] codice qr
-
-# [ ] tasto vai
  */

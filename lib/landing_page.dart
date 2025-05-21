@@ -58,7 +58,7 @@ class _LandingPageState extends State<LandingPage> {
     final piatti = [
       PiattoColumn(
         dishName: 'Fit Chicken Bowl',
-        imagepath: 'assets/primo.png',
+        imagepath: '../assets/primo.png',
         dimagrimentoData: DishData(
             ingredients: [
               {'name': 'Petto di pollo grigliato', 'grams': '140g'},
@@ -101,7 +101,7 @@ class _LandingPageState extends State<LandingPage> {
       ),
       PiattoColumn(
         dishName: 'Vegan Power Bowl',
-        imagepath: 'assets/veg.png',
+        imagepath: '../assets/veg.png',
         dimagrimentoData: DishData(
           ingredients: [
             {'name': 'Tofu alla griglia', 'grams': '120g'},
@@ -142,7 +142,7 @@ class _LandingPageState extends State<LandingPage> {
       ),
       PiattoColumn(
           dishName: 'Muscle Gain Bowl',
-          imagepath: 'assets/terzo.png',
+          imagepath: '../assets/terzo.png',
           dimagrimentoData: DishData(
             ingredients: [
               {'name': 'Riso', 'grams': '110g'},
@@ -188,7 +188,7 @@ class _LandingPageState extends State<LandingPage> {
         title: Text('Bello uaglione, bravo.'),
         centerTitle: true,
         titleTextStyle: TextStyle(color: textColor, fontSize: 20),
-        leading: Image.asset('assets/logo.png'),
+        leading: Image.asset('../assets/logo.png'),
         backgroundColor: secondaryColor,
       )
           : null,
@@ -204,7 +204,7 @@ class _LandingPageState extends State<LandingPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets/logo.png',
+                    '../assets/logo.png',
                     height: 100,
                   ),
                   const SizedBox(height: 16),

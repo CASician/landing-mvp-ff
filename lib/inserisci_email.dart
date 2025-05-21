@@ -1,12 +1,13 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
+import 'env.dart';
+
 void showEmailCapDialog(BuildContext context) {
-  final primaryColor = Color(int.parse(dotenv.env['PRIMARY_COLOR'] ?? '0xFF2196F3'));
-  final secondaryColor = Color(int.parse(dotenv.env['SECONDARY_COLOR'] ?? '0xFF4CAF50'));
+  final primaryColor = Env.primaryColor;
+  final secondaryColor = Env.secondaryColor;
 
   final emailController = TextEditingController();
   final capController = TextEditingController();
@@ -194,7 +195,7 @@ void showEmailCapDialog(BuildContext context) {
 }
 
 Future<void> sendDataToGoogleSheets(String email, String cap, context) async {
-  final Uri url = Uri.parse(dotenv.env['SHEETS_API'] ?? '');
+  final Uri url = Uri.parse(Env.sheetsApi);
   final response = await http.post(
     url,
     headers: {'Content-Type': 'application/x-www-form-urlencoded'},

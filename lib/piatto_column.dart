@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mvp_ff/inserisci_email.dart';
+
+import 'env.dart';
 
 enum DietType { dimagrimento, mantenimento, massa }
 
@@ -92,9 +93,7 @@ class _PiattoColumnState extends State<PiattoColumn> {
             margin: const EdgeInsets.all(4),
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Color(
-                int.parse(dotenv.env['SECONDARY_COLOR'] ?? '0xFF4CAF50'),
-              ),
+              color: Env.secondaryColor,
               border: Border.all(color: Colors.black),
               borderRadius: BorderRadius.circular(12),
               boxShadow: const [

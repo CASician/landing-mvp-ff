@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:mvp_ff/inserisci_email.dart';
 import 'package:mvp_ff/piatto_column.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'env.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -47,11 +48,11 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
-    final title = dotenv.env['TITLE'] ?? 'Titolo di default';
-    final subtitle = dotenv.env['SUBTITLE'] ?? 'Sottotitolo di default';
-    final textColor = Color(int.parse(dotenv.env['TEXT_COLOR'] ?? '0xFF0b2b26'));
-    final primaryColor = Color(int.parse(dotenv.env['PRIMARY_COLOR'] ?? '0xFF4CAF50'));
-    final secondaryColor = Color(int.parse(dotenv.env['SECONDARY_COLOR'] ?? '0xFF4CAF50'));
+    final title = Env.title;
+    final subtitle = Env.subtitle;
+    final textColor = Env.textColor;
+    final primaryColor = Env.primaryColor;
+    final secondaryColor = Env.secondaryColor;
     final font = GoogleFonts.robotoSlab();
 
     final piatti = [

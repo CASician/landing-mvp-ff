@@ -82,8 +82,7 @@ class _PiattoColumnState extends State<PiattoColumn> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: MouseRegion(
+    return MouseRegion(
         cursor: SystemMouseCursors.click,
         child: GestureDetector(
           onTap: () {
@@ -153,8 +152,8 @@ class _PiattoColumnState extends State<PiattoColumn> {
                       child: Text(
                         '${currentData.calories}',
                         style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
@@ -192,9 +191,7 @@ class _PiattoColumnState extends State<PiattoColumn> {
             ),
           ),
         ),
-      ),
-      // child:
-    );
+      );
   }
 }
 

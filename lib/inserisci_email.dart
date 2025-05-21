@@ -19,7 +19,7 @@ void showEmailCapDialog(BuildContext context) {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Vuoi ricevere questo piatto a casa tua?',
+              'Fit & Fast è quasi pronto!',
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -29,7 +29,7 @@ void showEmailCapDialog(BuildContext context) {
             ),
             const SizedBox(height: 12),
             Text(
-              'Inserisci la tua email e il CAP per scoprire se consegniamo nella tua zona!',
+              'Inserisci la tua email e il CAP per scoprire la data!',
               style: const TextStyle(
                 fontSize: 14,
                 color: Colors.white70,
@@ -95,7 +95,7 @@ void showEmailCapDialog(BuildContext context) {
                             ),
                             const SizedBox(height: 12),
                             const Text(
-                              'Ti ricontatteremo appena possibile con informazioni sulla consegna nella tua zona.',
+                              'Ti ricontatteremo appena possibile.',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.white70,

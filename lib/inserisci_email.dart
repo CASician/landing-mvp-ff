@@ -243,6 +243,14 @@ Future<void> sendDataToGoogleSheets(String email, String cap, context) async {
     );
   } else {
     log("Dati mandati! email:" + email + ", cap:" + cap);
+    // Invia la notifica push a ntfy.sh
+    final notificationResponse = await http.post(
+      Uri.parse('https://ntfy.sh/fitandfast'),
+      headers: {
+        'Content-Type': 'text/plain',
+      },
+      body: 'New entry: $email, $cap',
+    );
   }
 }
 

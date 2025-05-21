@@ -8,6 +8,7 @@ class Env {
   static const Color primaryColor = Color(0xFF7cb518);
   static const Color secondaryColor = Color(0xFFf9a03f);
   static const Color textColor = Color(0xFF0b2b26);
+  static const Color lastColor = Color(0xFF14D928);
 }
 
 /*

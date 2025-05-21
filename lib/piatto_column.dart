@@ -32,18 +32,18 @@ class _PiattoColumnState extends State<PiattoColumn> {
   @override
   void initState() {
     super.initState();
-    currentData = widget.massaData;
+    currentData = widget.mantenimentoData;
   }
 
   void selectDiet(DietType type) {
     setState(() {
       selected = type;
       switch (type) {
-        case DietType.massa:
-          currentData = widget.massaData;
-          break;
         case DietType.mantenimento:
           currentData = widget.mantenimentoData;
+          break;
+        case DietType.massa:
+          currentData = widget.massaData;
           break;
         case DietType.dimagrimento:
           currentData = widget.dimagrimentoData;
@@ -194,7 +194,7 @@ class _PiattoColumnState extends State<PiattoColumn> {
                 child: Center(
                   child: FloatingActionButton(
                     mini: true,
-                    backgroundColor: Env.primaryColor,
+                    backgroundColor: Env.lastColor,
                     onPressed: () {
                       showEmailCapDialog(context);
                     },

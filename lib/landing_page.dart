@@ -58,7 +58,7 @@ class _LandingPageState extends State<LandingPage> {
     final piatti = [
       PiattoColumn(
         dishName: 'Fit Chicken Bowl',
-        imagepath: '../assets/primo.png',
+        imagepath: 'assets/primo.png',
         dimagrimentoData: DishData(
             ingredients: [
               {'name': 'Petto di pollo grigliato', 'grams': '140g'},
@@ -103,7 +103,7 @@ class _LandingPageState extends State<LandingPage> {
 
       PiattoColumn(
         dishName: 'Vegan Power Bowl',
-        imagepath: '../assets/veg.png',
+        imagepath: 'assets/veg.png',
         dimagrimentoData: DishData(
           ingredients: [
             {'name': 'Tofu alla griglia', 'grams': '120g'},
@@ -145,7 +145,7 @@ class _LandingPageState extends State<LandingPage> {
 
       PiattoColumn(
           dishName: 'Muscle Gain Bowl',
-          imagepath: '../assets/terzo.png',
+          imagepath: 'assets/terzo.png',
           dimagrimentoData: DishData(
             ingredients: [
               {'name': 'Riso', 'grams': '110g'},
@@ -186,13 +186,14 @@ class _LandingPageState extends State<LandingPage> {
     ];
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: _showAppBar
           ? AppBar(
-        title: Text('Bello uaglione, bravo.'),
-        centerTitle: true,
+        elevation: 0.0,
+        backgroundColor: Colors.transparent,
+        scrolledUnderElevation: 0.0,
         titleTextStyle: TextStyle(color: textColor, fontSize: 20),
-        leading: Image.asset('../assets/logo.png'),
-        backgroundColor: secondaryColor,
+        leading: Image.asset('assets/logo.png'),
       )
           : null,
       body: Stack(
@@ -206,7 +207,7 @@ class _LandingPageState extends State<LandingPage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset('../assets/logo.png', height: 100),
+                  Image.asset('assets/logo.png', height: 100),
                   const SizedBox(height: 16),
                   Text(
                     title,

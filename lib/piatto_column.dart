@@ -60,7 +60,7 @@ class _PiattoColumnState extends State<PiattoColumn> {
         onTap: () => selectDiet(type),
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 4),
-          padding: const EdgeInsets.symmetric(vertical: 6),
+          padding: const EdgeInsets.symmetric(vertical: 12),
           decoration: BoxDecoration(
             color: isSelected ? Colors.white : Colors.grey[300],
             borderRadius: BorderRadius.circular(6),
@@ -83,114 +83,127 @@ class _PiattoColumnState extends State<PiattoColumn> {
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: GestureDetector(
-          onTap: () {
-            showEmailCapDialog(context);
-          },
-          child: Container(
-            margin: const EdgeInsets.all(4),
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Env.secondaryColor,
-              border: Border.all(color: Colors.black),
-              borderRadius: BorderRadius.circular(12),
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 4,
-                  offset: Offset(8, 8),
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    buildDietButton("DIMAGRIMENTO", DietType.dimagrimento),
-                    buildDietButton("MANTENIMENTO", DietType.mantenimento),
-                    buildDietButton("MASSA", DietType.massa),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  widget.dishName,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+    return Stack(
+            children: [
+              Container(
+              margin: const EdgeInsets.all(4),
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Env.secondaryColor,
+                border: Border.all(color: Colors.black),
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 4,
+                    offset: Offset(8, 8),
                   ),
-                ),
-                Image.asset(widget.imagepath),
-                const SizedBox(height: 12),
-                ...currentData.ingredients.map(
-                  (item) => Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 2.0),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 8),
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(item['name']!, style: const TextStyle(fontSize: 14)),
-                        Text(
-                          item['grams']!,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.black54,
-                          ),
-                        ),
+                        buildDietButton("DIMAGRIMENTO", DietType.dimagrimento),
+                        buildDietButton("MANTENIMENTO", DietType.mantenimento),
+                        buildDietButton("MASSA", DietType.massa),
                       ],
                     ),
                   ),
-                ),
-                // const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Center(
-                      child: Text(
-                        '${currentData.calories}',
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  const SizedBox(height: 12),
+                  Text(
+                    widget.dishName,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Image.asset(widget.imagepath),
+                  const SizedBox(height: 12),
+                  ...currentData.ingredients.map(
+                    (item) => Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 2.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(item['name']!, style: const TextStyle(fontSize: 14)),
+                          Text(
+                            item['grams']!,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children:
-                      currentData.macros
-                          .map(
-                            (m) => Expanded(
-                              child: Center(
-                                child: Text(
-                                  m,
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
+                  ),
+                  // const Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: Text(
+                          '${currentData.calories}',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children:
+                        currentData.macros
+                            .map(
+                              (m) => Expanded(
+                                child: Center(
+                                  child: Text(
+                                    m,
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          )
-                          .toList(),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  '€ ${currentData.price}',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                            )
+                            .toList(),
                   ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
+                  const SizedBox(height: 20),
+                  Text(
+                    '€ ${currentData.price}',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ),
-      );
+              Positioned(
+                right: 50,
+                bottom: 15,
+                child: Center(
+                  child: FloatingActionButton(
+                    mini: true,
+                    backgroundColor: Env.primaryColor,
+                    onPressed: () {
+                      showEmailCapDialog(context);
+                    },
+                    child: const Icon(Icons.check, size: 30, color: Colors.white),
+                  ),
+                ),
+              ),
+            ]
+          );
   }
 }
 

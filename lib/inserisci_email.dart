@@ -33,7 +33,7 @@ void showEmailCapDialog(BuildContext context) {
             ),
             const SizedBox(height: 12),
             Text(
-              'Inserisci la tua email e il CAP per scoprire la data!',
+              'Inserisci la tua email e il CAP per saperne di più!',
               style: const TextStyle(
                 fontSize: 14,
                 color: Colors.white70,

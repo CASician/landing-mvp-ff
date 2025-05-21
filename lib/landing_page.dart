@@ -68,7 +68,7 @@ class _LandingPageState extends State<LandingPage> {
               {'name': 'Paprika', 'grams': '0g'},
               {'name': 'Lime', 'grams': '0g'},
             ],
-            macros: ['20g carb', '414 prot', '22g grassi'],
+            macros: ['20g carb', '41 prot', '22g grassi'],
             calories: '500 kcal',
             price: '9.99'
         ),
@@ -83,7 +83,7 @@ class _LandingPageState extends State<LandingPage> {
             ],
             macros: ['25g carb', '47g prot', '25g grassi'],
             calories: '600 kcal',
-            price: '10.99'
+            price: '12.99'
         ),
         massaData: DishData(
             ingredients: [
@@ -96,9 +96,11 @@ class _LandingPageState extends State<LandingPage> {
             ],
             macros: ['30g carb', '55g prot', '28g grassi'],
             calories: '700 kcal',
-            price: '11.99'
+            price: '15.99'
         ),
       ),
+
+
       PiattoColumn(
         dishName: 'Vegan Power Bowl',
         imagepath: '../assets/veg.png',
@@ -133,13 +135,14 @@ class _LandingPageState extends State<LandingPage> {
             {'name': 'Verdure grigliate', 'grams': '300g'},
             {'name': 'Olio EVO', 'grams': '10g'},
             {'name': 'Semi di lino e girasole', 'grams': '15g'},
-            {'name': 'Ceci', 'grams': '80g'},
           ],
           macros: ['32g carb', '38g prot.', '47g grassi'],
           calories: '800 kcal',
           price: '15.99',
         ),
       ),
+
+
       PiattoColumn(
           dishName: 'Muscle Gain Bowl',
           imagepath: '../assets/terzo.png',
@@ -153,7 +156,7 @@ class _LandingPageState extends State<LandingPage> {
             ],
             macros: ['100g carb', '35g prot.', '35g grassi'],
             calories: '700 kcal',
-            price: '13.99',
+            price: '11.99',
           ),
           mantenimentoData: DishData(
             ingredients: [
@@ -177,7 +180,7 @@ class _LandingPageState extends State<LandingPage> {
             ],
             macros: ['140g carb', '45g prot.', '45g grassi'],
             calories: '950 kcal',
-            price: '15.99',
+            price: '17.99',
           )
       ),
     ];
@@ -203,10 +206,7 @@ class _LandingPageState extends State<LandingPage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    '../assets/logo.png',
-                    height: 100,
-                  ),
+                  Image.asset('../assets/logo.png', height: 100),
                   const SizedBox(height: 16),
                   Text(
                     title,
@@ -225,17 +225,6 @@ class _LandingPageState extends State<LandingPage> {
                       color: Colors.white70,
                     ),
                     textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 32),
-                  ElevatedButton(
-                    onPressed: () {showEmailCapDialog(context);},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: primaryColor,
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                      textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                    child: const Text("Personalizza il tuo pasto al grammo!"),
                   ),
                   const SizedBox(height: 32),
                   LayoutBuilder(
@@ -259,6 +248,19 @@ class _LandingPageState extends State<LandingPage> {
                         ),
                       );
                     },
+                  ),
+                  const SizedBox(height: 32),
+                  Text("oppure", style: font.copyWith(color: Colors.white, fontSize: 20)),
+                  const SizedBox(height: 32),
+                  ElevatedButton(
+                    onPressed: () {showEmailCapDialog(context);},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: primaryColor,
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                      textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    child: const Text("Personalizza il tuo pasto al grammo!"),
                   ),
                 ],
               ),

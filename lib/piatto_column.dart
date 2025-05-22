@@ -60,7 +60,7 @@ class _PiattoColumnState extends State<PiattoColumn> {
         onTap: () => selectDiet(type),
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 4),
-          padding: const EdgeInsets.symmetric(vertical: 12),
+          padding: const EdgeInsets.symmetric(vertical: 16),
           decoration: BoxDecoration(
             color: isSelected ? Colors.white : Colors.grey[300],
             borderRadius: BorderRadius.circular(6),
@@ -70,7 +70,7 @@ class _PiattoColumnState extends State<PiattoColumn> {
             child: Text(
               label,
               style: TextStyle(
-                fontSize: 8,
+                fontSize: 9,
                 fontWeight: FontWeight.bold,
                 color: isSelected ? Colors.black : Colors.grey[800],
               ),

@@ -168,7 +168,7 @@ class _LandingPageState extends State<LandingPage> {
             ],
             macros: ['120g carb', '39g prot.', '39g grassi'],
             calories: '810 kcal',
-            price: '14.99',
+            price: '13.99',
           ),
           massaData: DishData(
             ingredients: [
@@ -180,7 +180,7 @@ class _LandingPageState extends State<LandingPage> {
             ],
             macros: ['140g carb', '45g prot.', '45g grassi'],
             calories: '950 kcal',
-            price: '17.99',
+            price: '15.99',
           )
       ),
     ];

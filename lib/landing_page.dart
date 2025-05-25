@@ -53,6 +53,7 @@ class _LandingPageState extends State<LandingPage> {
     final textColor = Env.textColor;
     final primaryColor = Env.primaryColor;
     final secondaryColor = Env.secondaryColor;
+    final tertiaryColor = Env.tertiaryColor;
     final font = GoogleFonts.robotoSlab();
 
     final piatti = [
@@ -217,7 +218,7 @@ class _LandingPageState extends State<LandingPage> {
                       color: Colors.white,
                     ),
                     textAlign: TextAlign.center,
-                  ),
+                  ), // Title
                   const SizedBox(height: 16),
                   Text(
                     subtitle,
@@ -226,7 +227,20 @@ class _LandingPageState extends State<LandingPage> {
                       color: Colors.white70,
                     ),
                     textAlign: TextAlign.center,
+                  ), // Subtitle
+                  const SizedBox(height: 32),
+                  ElevatedButton(
+                    onPressed: () {showEmailCapDialog(context);},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: secondaryColor,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                      textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    child: const Text("Personalizza il tuo pasto al grammo!"),
                   ),
+                  const SizedBox(height: 32),
+                  Text("oppure", style: font.copyWith(color: Colors.white, fontSize: 20)),
                   const SizedBox(height: 32),
                   LayoutBuilder(
                     builder: (context, constraints) {
@@ -249,20 +263,8 @@ class _LandingPageState extends State<LandingPage> {
                         ),
                       );
                     },
-                  ),
-                  const SizedBox(height: 32),
-                  Text("oppure", style: font.copyWith(color: Colors.white, fontSize: 20)),
-                  const SizedBox(height: 32),
-                  ElevatedButton(
-                    onPressed: () {showEmailCapDialog(context);},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: primaryColor,
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                      textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                    child: const Text("Personalizza il tuo pasto al grammo!"),
-                  ),
+                  ), // I piatti
+
                 ],
               ),
             ]

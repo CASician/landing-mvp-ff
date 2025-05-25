@@ -4,6 +4,7 @@ import 'package:mvp_ff/inserisci_email.dart';
 import 'package:mvp_ff/piatto_column.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:async';
 
 import 'env.dart';
 
@@ -17,6 +18,9 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   final ScrollController _scrollController = ScrollController();
   bool _showAppBar = false;
+  late Timer _timer;
+  Color _arrowColor = Colors.white;
+  Color _arrowColor2 = Colors.red;
 
   @override
   void initState() {
@@ -32,6 +36,15 @@ class _LandingPageState extends State<LandingPage> {
         });
       }
     });
+
+    // Cambia il colore ogni 2 secondi
+    _timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
+      setState(() {
+        _arrowColor = (_arrowColor == Colors.white) ? Colors.red : Colors.white;
+        _arrowColor2 = (_arrowColor2 == Colors.red) ? Colors.white : Colors.red;
+      });
+    });
+
   }
   void _launchInstagram() async {
     final Uri url = Uri.parse('https://www.instagram.com/fitanfast?igsh=MnNia2w3cG15ZWNz&utm_source=qr');
@@ -230,17 +243,48 @@ class _LandingPageState extends State<LandingPage> {
                   ), // Subtitle
                   const SizedBox(height: 32),
                   ElevatedButton(
-                    onPressed: () {showEmailCapDialog(context);},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: secondaryColor,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-                      textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                    child: const Text("Personalizza il tuo pasto al grammo!"),
-                  ),
+                          onPressed: () {showEmailCapDialog(context);},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: secondaryColor,
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                            textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                          child: const Text("Personalizza il tuo pasto al grammo!"),
+                        ),
                   const SizedBox(height: 32),
-                  Text("oppure", style: font.copyWith(color: Colors.white, fontSize: 20)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Transform.translate(
+                        offset: const Offset(-40, -20),
+                        child: Transform.rotate(
+                          angle: -0.9,
+                          child: Text(
+                            "➡️",
+                            style: TextStyle(
+                              fontSize: 40,
+                              color: _arrowColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Text("oppure", style: font.copyWith(color: Colors.white, fontSize: 20)),
+                      Transform.translate(
+                        offset: const Offset(40, -20),
+                        child: Transform.rotate(
+                          angle: 0.9,
+                          child: Text(
+                            "⬅️",
+                            style: TextStyle(
+                              fontSize: 40,
+                              color: _arrowColor2,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 32),
                   LayoutBuilder(
                     builder: (context, constraints) {
@@ -283,5 +327,4 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 }
-
 

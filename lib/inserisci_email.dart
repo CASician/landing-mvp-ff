@@ -72,90 +72,81 @@ void showEmailCapDialog(BuildContext context) {
                   padding: const EdgeInsets.symmetric(vertical: 12),
                 ),
                 onPressed: () async {
-  final email = emailController.text.trim();
-  final cap = capController.text.trim();
+                  final email = emailController.text.trim();
+                  final cap = capController.text.trim();
 
-  final emailValid = RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$").hasMatch(email);
-  final capValid = RegExp(r"^\d{5}$").hasMatch(cap);
+                  final emailValid = RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$").hasMatch(email);
+                  final capValid = RegExp(r"^\d{5}$").hasMatch(cap);
 
-  if (emailValid && capValid) {
-    // Mostra il dialog con la rotellina
-    showDialog(
-      context: context,
-      barrierDismissible: false, // l'utente non può chiudere il dialog manualmente
-      builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
-
-    try {
-      // Esegue l'operazione di invio dati
-      await sendDataToGoogleSheets(email, cap, context);
-    } finally {
-      // Chiude il dialog di caricamento
-      Navigator.of(context, rootNavigator: true).pop(); // Chiude il dialog
-      // Chiude anche il dialog iniziale (se presente)
-      Navigator.of(context).pop(); 
-    }
-  } else {
-    // Eventuale gestione errori input
-  }
-
-
-                    // Confirmation dialog
+                  if (emailValid && capValid) {
+                    // Mostra il dialog con la rotellina
                     showDialog(
                       context: context,
+                      barrierDismissible: false,
                       builder: (context) {
-                        return AlertDialog(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                          backgroundColor: secondaryColor,
-                          contentPadding: const EdgeInsets.all(24),
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Text(
-                                'Grazie!',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              const SizedBox(height: 12),
-                              const Text(
-                                'Ti ricontatteremo appena possibile.',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.white70,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              const SizedBox(height: 20),
-                              Center(
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: primaryColor,
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context).pop(); // Chiude il secondo dialog
-                                  },
-                                  child: const Text('Chiudi', style: TextStyle(color: Colors.white)),
-                                ),
-                              )
-                            ],
-                          ),
+                        return const Center(
+                          child: CircularProgressIndicator(),
                         );
                       },
                     );
 
+                    try {
+                      await sendDataToGoogleSheets(email, cap, context);
+                      // Mostra dialog di conferma
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                            backgroundColor: secondaryColor,
+                            contentPadding: const EdgeInsets.all(24),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Text(
+                                  'Grazie!',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(height: 12),
+                                const Text(
+                                  'Ti ricontatteremo appena possibile.',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white70,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(height: 20),
+                                Center(
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: primaryColor,
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context).pop(); // Chiude il dialog di conferma
+                                    },
+                                    child: const Text('Chiudi', style: TextStyle(color: Colors.white)),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    } finally {
+                      // Chiude il dialog di caricamento e il primo dialog
+                      Navigator.of(context, rootNavigator: true).pop(); // chiude il loading
+                      Navigator.of(context).pop(); // chiude il dialog iniziale
+                    }
                   } else {
-
-                    // Negation dialog
+                    // Mostra dialog di errore
                     showDialog(
                       context: context,
                       builder: (context) {
@@ -193,18 +184,17 @@ void showEmailCapDialog(BuildContext context) {
                                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                                   ),
                                   onPressed: () {
-                                    Navigator.of(context).pop(); // Chiude il secondo dialog
+                                    Navigator.of(context).pop(); // Chiude il dialog di errore
                                   },
                                   child: const Text('Chiudi', style: TextStyle(color: Colors.white)),
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         );
                       },
                     );
                   }
-
                 },
                 child: const Text('Invia', style: TextStyle(color: Colors.white)),
               ),
@@ -253,26 +243,23 @@ Future<void> sendDataToGoogleSheets(String email, String cap, context) async {
                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   ),
                   onPressed: () {
-                    Navigator.of(context).pop(); // Chiude il secondo dialog
+                    Navigator.of(context).pop(); // Chiude il dialog di errore invio
                   },
                   child: const Text('Chiudi', style: TextStyle(color: Colors.black)),
                 ),
-              )
+              ),
             ],
           ),
         );
       },
     );
   } else {
-    log("Dati mandati! email:" + email + ", cap:" + cap);
-    // Invia la notifica push a ntfy.sh
-    final notificationResponse = await http.post(
+    log("Dati mandati! email: $email, cap: $cap");
+
+    await http.post(
       Uri.parse('https://ntfy.sh/fitandfast'),
-      headers: {
-        'Content-Type': 'text/plain',
-      },
+      headers: {'Content-Type': 'text/plain'},
       body: 'New entry: $email, $cap',
     );
   }
 }
-

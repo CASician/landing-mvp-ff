@@ -79,10 +79,24 @@ void showEmailCapDialog(BuildContext context) {
                   final capValid = RegExp(r"^\d{5}$").hasMatch(cap);
 
                   if (emailValid && capValid) {
-                    await sendDataToGoogleSheets(email, cap, context);
-                    Navigator.of(context).pop(); // chiudi primo dialog
+                    // Mostra il dialog con la rotellina
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) {
+                        return const Center(child: CircularProgressIndicator());
+                      },
+                    );
 
-                    // Confirmation dialog
+                    // Invio dati
+                    await sendDataToGoogleSheets(email, cap, context);
+
+                    // Chiude la rotellina
+                    Navigator.of(context, rootNavigator: true).pop();
+                    // Chiude il dialog iniziale
+                    Navigator.of(context).pop();
+
+                    // Mostra dialog di conferma
                     showDialog(
                       context: context,
                       builder: (context) {
@@ -120,7 +134,7 @@ void showEmailCapDialog(BuildContext context) {
                                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                                   ),
                                   onPressed: () {
-                                    Navigator.of(context).pop(); // Chiude il secondo dialog
+                                    Navigator.of(context).pop();
                                   },
                                   child: const Text('Chiudi', style: TextStyle(color: Colors.white)),
                                 ),
@@ -130,10 +144,8 @@ void showEmailCapDialog(BuildContext context) {
                         );
                       },
                     );
-
                   } else {
-
-                    // Negation dialog
+                    // Dati non validi
                     showDialog(
                       context: context,
                       builder: (context) {
@@ -171,7 +183,7 @@ void showEmailCapDialog(BuildContext context) {
                                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                                   ),
                                   onPressed: () {
-                                    Navigator.of(context).pop(); // Chiude il secondo dialog
+                                    Navigator.of(context).pop();
                                   },
                                   child: const Text('Chiudi', style: TextStyle(color: Colors.white)),
                                 ),
@@ -182,7 +194,6 @@ void showEmailCapDialog(BuildContext context) {
                       },
                     );
                   }
-
                 },
                 child: const Text('Invia', style: TextStyle(color: Colors.white)),
               ),
@@ -231,7 +242,7 @@ Future<void> sendDataToGoogleSheets(String email, String cap, context) async {
                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   ),
                   onPressed: () {
-                    Navigator.of(context).pop(); // Chiude il secondo dialog
+                    Navigator.of(context).pop();
                   },
                   child: const Text('Chiudi', style: TextStyle(color: Colors.black)),
                 ),
@@ -243,14 +254,10 @@ Future<void> sendDataToGoogleSheets(String email, String cap, context) async {
     );
   } else {
     log("Dati mandati! email:" + email + ", cap:" + cap);
-    // Invia la notifica push a ntfy.sh
-    final notificationResponse = await http.post(
+    await http.post(
       Uri.parse('https://ntfy.sh/fitandfast'),
-      headers: {
-        'Content-Type': 'text/plain',
-      },
+      headers: {'Content-Type': 'text/plain'},
       body: 'New entry: $email, $cap',
     );
   }
 }
-

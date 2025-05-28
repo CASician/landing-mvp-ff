@@ -72,15 +72,37 @@ void showEmailCapDialog(BuildContext context) {
                   padding: const EdgeInsets.symmetric(vertical: 12),
                 ),
                 onPressed: () async {
-                  final email = emailController.text.trim();
-                  final cap = capController.text.trim();
+  final email = emailController.text.trim();
+  final cap = capController.text.trim();
 
-                  final emailValid = RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$").hasMatch(email);
-                  final capValid = RegExp(r"^\d{5}$").hasMatch(cap);
+  final emailValid = RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$").hasMatch(email);
+  final capValid = RegExp(r"^\d{5}$").hasMatch(cap);
 
-                  if (emailValid && capValid) {
-                    await sendDataToGoogleSheets(email, cap, context);
-                    Navigator.of(context).pop(); // chiudi primo dialog
+  if (emailValid && capValid) {
+    // Mostra il dialog con la rotellina
+    showDialog(
+      context: context,
+      barrierDismissible: false, // l'utente non può chiudere il dialog manualmente
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+
+    try {
+      // Esegue l'operazione di invio dati
+      await sendDataToGoogleSheets(email, cap, context);
+    } finally {
+      // Chiude il dialog di caricamento
+      Navigator.of(context, rootNavigator: true).pop(); // Chiude il dialog
+      // Chiude anche il dialog iniziale (se presente)
+      Navigator.of(context).pop(); 
+    }
+  } else {
+    // Eventuale gestione errori input
+  }
+}
 
                     // Confirmation dialog
                     showDialog(

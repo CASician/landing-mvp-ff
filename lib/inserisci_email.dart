@@ -102,7 +102,7 @@ void showEmailCapDialog(BuildContext context) {
   } else {
     // Eventuale gestione errori input
   }
-}
+
 
                     // Confirmation dialog
                     showDialog(

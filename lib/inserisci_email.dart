@@ -10,7 +10,7 @@ void showEmailCapDialog(BuildContext context) {
   final secondaryColor = Env.secondaryColor;
 
   final emailController = TextEditingController();
-  final capController = TextEditingController();
+  // final capController = TextEditingController();
 
   showDialog(
     context: context,
@@ -33,7 +33,7 @@ void showEmailCapDialog(BuildContext context) {
             ),
             const SizedBox(height: 12),
             Text(
-              'Inserisci la tua email e il CAP per saperne di più!',
+              'Inserisci la tua email per saperne di più!',
               style: const TextStyle(
                 fontSize: 14,
                 color: Colors.white70,
@@ -52,17 +52,17 @@ void showEmailCapDialog(BuildContext context) {
               keyboardType: TextInputType.emailAddress,
             ),
             const SizedBox(height: 12),
-            TextField(
-              controller: capController,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                hintText: 'CAP',
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-              ),
-              keyboardType: TextInputType.number,
-            ),
-            const SizedBox(height: 20),
+            // TextField(
+            //   controller: capController,
+            //   decoration: InputDecoration(
+            //     filled: true,
+            //     fillColor: Colors.white,
+            //     hintText: 'CAP',
+            //     border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+            //   ),
+            //   keyboardType: TextInputType.number,
+            // ),
+            // const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -73,12 +73,13 @@ void showEmailCapDialog(BuildContext context) {
                 ),
                 onPressed: () async {
                   final email = emailController.text.trim();
-                  final cap = capController.text.trim();
+                  // final cap = capController.text.trim();
 
                   final emailValid = RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$").hasMatch(email);
-                  final capValid = RegExp(r"^\d{5}$").hasMatch(cap);
+                  // final capValid = RegExp(r"^\d{5}$").hasMatch(cap);
 
-                  if (emailValid && capValid) {
+                  // if (emailValid && capValid) {
+                  if (emailValid) {
                     // Mostra il dialog con la rotellina
                     showDialog(
                       context: context,
@@ -89,7 +90,8 @@ void showEmailCapDialog(BuildContext context) {
                     );
 
                     // Invio dati
-                    await sendDataToGoogleSheets(email, cap, context);
+                    // await sendDataToGoogleSheets(email, cap, context);
+                    await sendDataToGoogleSheets(email, context);
 
                     // Chiude la rotellina
                     Navigator.of(context, rootNavigator: true).pop();
@@ -167,7 +169,8 @@ void showEmailCapDialog(BuildContext context) {
                               ),
                               const SizedBox(height: 12),
                               const Text(
-                                'Inserisci email e CAP validi per continuare.',
+                                // 'Inserisci email e CAP validi per continuare.',
+                                'Inserisci email valida per continuare.',
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.white70,
@@ -204,13 +207,15 @@ void showEmailCapDialog(BuildContext context) {
     },
   );
 }
-
-Future<void> sendDataToGoogleSheets(String email, String cap, context) async {
+// Future<void> sendDataToGoogleSheets(String email, String cap, context) async {
+Future<void> sendDataToGoogleSheets(String email, context) async {
   final Uri url = Uri.parse(Env.sheetsApi);
   final response = await http.post(
     url,
     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-    body: 'email=${Uri.encodeComponent(email)}&cap=${Uri.encodeComponent(cap)}',
+    // body: 'email=${Uri.encodeComponent(email)}&cap=${Uri.encodeComponent(cap)}',
+    body: 'email=${Uri.encodeComponent(email)}',
+
   );
 
   if (response.statusCode != 200) {
@@ -253,11 +258,13 @@ Future<void> sendDataToGoogleSheets(String email, String cap, context) async {
       },
     );
   } else {
-    log("Dati mandati! email:" + email + ", cap:" + cap);
+    // log("Dati mandati! email:" + email + ", cap:" + cap);
+    log("Dati mandati! email:" + email);
     await http.post(
       Uri.parse('https://ntfy.sh/fitandfast'),
       headers: {'Content-Type': 'text/plain'},
-      body: 'New entry: $email, $cap',
+      // body: 'New entry: $email, $cap',
+        body: 'New entry: $email',
     );
   }
 }
